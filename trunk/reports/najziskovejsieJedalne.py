@@ -19,8 +19,8 @@ group by f.name order by count(*) desc' %year
 
 query.execute(report_source) 
 output = query.fetchall()
-print output 
-
-
+print "%50s | %s" % ("jedlo","pocet")
+for row in output:
+    print "%50s | %s" % (row[1],row[0])
 
 
