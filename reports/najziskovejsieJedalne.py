@@ -18,7 +18,7 @@ where d.year = %s \
 group by f.name order by count(*) desc' %year
 
 query.execute(report_source) 
-output = query.fetchone()
+output = query.fetchall()
 print output 
 
 
