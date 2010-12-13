@@ -62,8 +62,8 @@ CREATE  TABLE IF NOT EXISTS `Facility` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `description` TEXT NULL ,
-  `FacilityType_id` INT NULL ,
-  `Address_id` INT NULL ,
+  `facilitytype_id` INT NULL ,
+  `address_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = 'Jednotlive zariadenia jedalen,kniznica a pod';
@@ -102,8 +102,8 @@ CREATE  TABLE IF NOT EXISTS `CardOwner` (
   `id_card_type` INT NULL ,
   `photo` VARCHAR(45) NULL ,
   `note` VARCHAR(255) NULL ,
-  `OwnerRole_id` INT NULL ,
-  `Address_id` INT NULL ,
+  `ownerrole_id` INT NULL ,
+  `address_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = 'Tabulka drzitelov kariet';
@@ -118,7 +118,7 @@ CREATE  TABLE IF NOT EXISTS `Organization` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `description` TEXT NULL ,
-  `Address_id` INT NULL ,
+  `address_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = 'Tabulka organizacii (fakulta,dekanat  a pod.)';
@@ -137,10 +137,10 @@ CREATE  TABLE IF NOT EXISTS `Card` (
   `validity_date_to` DATE NULL ,
   `sale_date` DATE NULL ,
   `void_date` DATE NULL ,
-  `Facility_id` INT NULL ,
-  `CardOwner_id` INT NULL ,
-  `ProductType_id` INT NULL ,
-  `Organization_id` INT NULL ,
+  `facility_id` INT NULL ,
+  `cardowner_id` INT NULL ,
+  `producttype_id` INT NULL ,
+  `organization_id` INT NULL ,
   `cantine_credit` FLOAT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -158,8 +158,8 @@ CREATE  TABLE IF NOT EXISTS `ProlongationStamp` (
   `date_of_sale` VARCHAR(45) NULL ,
   `validity_date_from` DATE NULL ,
   `validity_date_to` DATE NULL ,
-  `ProductType_id` INT NULL ,
-  `Card_id` INT UNSIGNED NULL ,
+  `producttype_id` INT NULL ,
+  `card_id` INT UNSIGNED NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = 'Tabulka prolongacnych znamok';
@@ -192,10 +192,10 @@ CREATE  TABLE IF NOT EXISTS `Borrowing` (
   `borrowing_date` DATE NULL ,
   `returning_date` DATE NULL ,
   `note` VARCHAR(45) NULL ,
-  `Card_id` INT UNSIGNED NULL ,
+  `card_id` INT UNSIGNED NULL ,
   `state` INT NULL ,
-  `Exemplar_id` INT NULL ,
-  `Facility_id` INT NULL ,
+  `exemplar_id` INT NULL ,
+  `facility_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -221,9 +221,9 @@ DROP TABLE IF EXISTS `Order` ;
 CREATE  TABLE IF NOT EXISTS `Order` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `time` DATETIME NULL ,
-  `Facility_id` INT NULL ,
-  `Card_id` INT UNSIGNED NULL ,
-  `Food_id` INT NULL ,
+  `facility_id` INT NULL ,
+  `card_id` INT UNSIGNED NULL ,
+  `food_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -235,11 +235,11 @@ DROP TABLE IF EXISTS `Date` ;
 
 CREATE  TABLE IF NOT EXISTS `Date` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `Day` INT NULL ,
-  `Week` INT NULL ,
-  `Month` INT NULL ,
-  `Semester` INT NULL ,
-  `Year` INT NULL ,
+  `day` INT NULL ,
+  `week` INT NULL ,
+  `month` INT NULL ,
+  `semester` INT NULL ,
+  `year` INT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -253,20 +253,17 @@ CREATE  TABLE IF NOT EXISTS `FoodSale` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `sale_price` REAL NULL ,
   `profit` REAL NULL ,
-  `Food_id` INT NULL ,
-  `Facility_id` INT NULL ,
-  `Date_id` INT NULL ,
-  `CardOwner_id` INT NULL ,
+  `food_id` INT NULL ,
+  `facility_id` INT NULL ,
+  `date_id` INT NULL ,
+  `card_id` INT NULL ,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
+-- -----------------------------------------------------
+-- Table `Address`
+-- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Address` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `address_city` VARCHAR(45) NULL ,
@@ -276,63 +273,3 @@ CREATE  TABLE IF NOT EXISTS `Address` (
   `address_region` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Data for table `Address`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `Address` (`id`, `address_city`, `address_street`, `address_state`, `address_zip`, `address_region`) VALUES ('1', 'Bratislava', 'Ilkovicova 3', 'Slovakia', '842 16', 'Bratislavsky kraj');
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `ProductType`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `ProductType` (`id`, `name`, `description`, `abreviation`, `issue_date_from`, `issue_date_to`) VALUES ('1', 'Medzinarodny preukaz studenta ISIC', NULL, 'ISIC', '2000-01-01', '2012-01-01');
-INSERT INTO `ProductType` (`id`, `name`, `description`, `abreviation`, `issue_date_from`, `issue_date_to`) VALUES ('2', 'Medzinarodny preukaz ITIC', NULL, 'ITIC', '2000-01-01', '2015-01-01');
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `FacilityType`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `FacilityType` (`id`, `name`, `description`) VALUES ('1', 'Jedalen', NULL);
-INSERT INTO `FacilityType` (`id`, `name`, `description`) VALUES ('2', 'Kniznica', NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `Facility`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `Facility` (`id`, `name`, `description`, `FacilityType_id`, `Address_id`) VALUES ('1', 'Jedalen FIIT STU', 'jedalen', '1', '1');
-INSERT INTO `Facility` (`id`, `name`, `description`, `FacilityType_id`, `Address_id`) VALUES ('2', 'Kniznica FIIT STU', 'kniznica', '2', '1');
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `OwnerRole`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `OwnerRole` (`id`, `name`, `description`) VALUES ('1', 'Student', NULL);
-INSERT INTO `OwnerRole` (`id`, `name`, `description`) VALUES ('2', 'Zamestnanec', NULL);
-INSERT INTO `OwnerRole` (`id`, `name`, `description`) VALUES ('3', 'Asistent', NULL);
-INSERT INTO `OwnerRole` (`id`, `name`, `description`) VALUES ('4', 'Doktorant', NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `Organization`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-
-INSERT INTO `Organization` (`id`, `name`, `description`, `Address_id`) VALUES ('1', 'FIIT STU', 'Fakulta Informatiky a Informacnych Technologii STU', '1');
-
-COMMIT;
