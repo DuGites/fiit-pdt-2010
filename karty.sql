@@ -182,7 +182,7 @@ CREATE TABLE `Facility` (
 
 LOCK TABLES `Facility` WRITE;
 /*!40000 ALTER TABLE `Facility` DISABLE KEYS */;
-INSERT INTO `Facility` VALUES (1,'Jedalen FIIT STU','Bratislava','Ilkovicova 3','SR','05476','',1),(2,'Kniznica FIIT STU','Bratislava','Ilkovicova 3','SR','05476','',2),(3,'Jedalen SDaJ Mladost','Bratislava','Grunty 1','SR','84545','',1),(4,'Jedalen UKF Nitra','Nitra','Zamocka 2','SR','21232','','1),(5,'Jedalen SDaJ Bernolak','Bratislava','Vazovova 2','SR','29233','',1),(6,'Jedalen TUKE','Kosice','Zelena 21','SR','32324','',1);
+INSERT INTO `Facility` VALUES (1,'Jedalen FIIT STU','Bratislava','Ilkovicova 3','SR','05476','',1),(2,'Jedalen SDaJ Mladost','Bratislava','Grunty 1','SR','84545','',1),(3,'Jedalen UKF Nitra','Nitra','Zamocka 2','SR','21232','','1'),(4,'Jedalen SDaJ Bernolak','Bratislava','Vazovova 2','SR','29233','',1),(5,'Jedalen TUKE','Kosice','Zelena 21','SR','32324','',1),(6,'Kniznica FIIT STU','Bratislava','Ilkovicova 3','SR','05476','',2);
 /*!40000 ALTER TABLE `Facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
