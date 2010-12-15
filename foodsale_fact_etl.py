@@ -1,6 +1,6 @@
 import sys
 
-# cesta k priecinku, kde sa nachadza podpriecinok pygrametl
+# cesta k lib
 sys.path.append('.')
 
 import pygrametl, MySQLdb, random, datetime
@@ -11,9 +11,6 @@ from datetime import datetime
 # Pripojenia na zdrojovu a cielovu databazu
 mysql_conn_target = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
 mysql_conn_source = MySQLdb.connect(host='localhost', user='root', passwd='', db='jedalen')
-
-mysql_conn_source.set_character_set('utf8')
-mysql_conn_target.set_character_set('utf8')
 
 conn_source = pygrametl.ConnectionWrapper(mysql_conn_source)
 conn_target = pygrametl.ConnectionWrapper(mysql_conn_target)
@@ -43,6 +40,7 @@ date_dim = CachedDimension(
     attributes=['day', 'week', 'month','year', 'semester'])
 
 i = 0
+print datetime.now()
 # naplnanie foodsale
 for row in foodsale_source:
     i = i + 1
@@ -74,6 +72,7 @@ for row in foodsale_source:
     if i > 1000:
         break
 conn_target.commit()
+print datetime.now()
 
 conn_source.close()
 conn_target.close()

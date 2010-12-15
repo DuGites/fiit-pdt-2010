@@ -1,7 +1,7 @@
 import sys
-
-# cesta k priecinku, kde sa nachadza podpriecinok pygrametl
-sys.path.append('.') 
+dir = sys.path[0]
+# cesta k lib
+sys.path.append(dir + '\\lib') 
 
 import pygrametl, MySQLdb
 from pygrametl.datasources import *

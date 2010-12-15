@@ -1,5 +1,9 @@
-﻿import MySQLdb
-import sys
+﻿import sys
+dir = sys.path[0]
+# cesta k lib
+sys.path.append(dir + '\\..\\lib') 
+
+import MySQLdb
 
 # vypise najziskovejsie jedalne za dany rok, default je 2008
 
