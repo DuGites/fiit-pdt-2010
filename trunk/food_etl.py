@@ -1,11 +1,12 @@
-import sys
+import sys, random, datetime
 
 # cesta k priecinku, kde sa nachadza podpriecinok pygrametl
-sys.path.append('d:\\Marcel\\PDT\\dwh\\') 
+sys.path.append('.') 
 
 import pygrametl, MySQLdb
 from pygrametl.datasources import *
 from pygrametl.tables import *
+from datetime import datetime
 
 mysql_conn_target = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
 mysql_conn_source = MySQLdb.connect(host='localhost', user='root', passwd='', db='jedalen')
@@ -25,7 +26,7 @@ YEAR(p.cas),MONTH(p.cas),WEEK(p.cas),DAY(p.cas), sz.id_stravovacie_zariadenie \
  left join jedalen.cast_jedla cj using (id_cast_jedla) \
  left join jedalen.denne_menu dm on(cjm.id_denne_menu = dm.id_menu)\
  left join jedalen.stravovacie_zariadenie sz using (id_stravovacie_zariadenie)\
- limit 100'
+ limit 200'
 
 food_sales_source = SQLSource(connection=conn_source, query=query_food_sales, names=('id', 'buy_price', 'weight', 'name','year','month','week','day', 'facility_id'), initsql=None, cursorarg=None)
 
@@ -71,7 +72,7 @@ date_dim = CachedDimension(
 food_sales_fact = FactTable(
     targetconnection = conn_target,
     name='foodsale', 
-    keyrefs=['profit', 'sale_price', 'food_id','facility_id','date_id'])
+    keyrefs=['profit', 'sale_price', 'food_id','facility_id','date_id', 'card_id'])
 
 def main():
     i = 0
@@ -82,6 +83,7 @@ def main():
     conn_target.execute("delete from `date`")
     #conn_target.execute("delete from facility")
     conn_target.commit()
+    print datetime.now()
     for row in food_sales_source:
 	i = i + 1
         print row
@@ -93,13 +95,14 @@ def main():
         # Add the data to the dimension tables and the fact table
         row['food_id'] = food_dim.ensure(row)
         row['date_id'] = date_dim.ensure(row)
+        row['card_id'] = random.randint(106, 2430)
         #row['facility_id'] = facility_dim.ensure(row)
         # na demonstraciu nepotrebujeme tych XYZ tisic dat co je v jedalni
         if i > 100:
             break
 	food_sales_fact.insert(row)
     conn_target.commit()
-
+    print datetime.now()
 if __name__ == '__main__':
     main()
 

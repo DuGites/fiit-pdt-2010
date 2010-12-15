@@ -10,7 +10,6 @@ from pygrametl.tables import *
 mysql_conn_target = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
 mysql_conn_source = MySQLdb.connect(host='localhost', user='root', passwd='', db='karty')
 
-## Define the MSSQL cursor objects
 conn_source = pygrametl.ConnectionWrapper(mysql_conn_source)
 conn_target = pygrametl.ConnectionWrapper(mysql_conn_target)
 
@@ -29,12 +28,9 @@ facility_dim = CachedDimension(
     key='id',
     attributes=['name', 'description'])
 
-# toto mi pride elegantnejsie
 for row in facilitytype_source:
-    print row
-    # mozete menit hodnoty
-    ### row['id'] = i
-    facility_dim.ensure(row)
+    facility_dim.insert(row)
+    #print row
 conn_target.commit()
 
 conn_source.close()
