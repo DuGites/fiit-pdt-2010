@@ -43,7 +43,6 @@ date_dim = CachedDimension(
     attributes=['day', 'week', 'month','year', 'semester'])
 
 i = 0
-print datetime.now()
 # naplnanie foodsale
 for row in foodsale_source:
     i = i + 1
@@ -75,7 +74,6 @@ for row in foodsale_source:
     if i > 1000:
         break
 conn_target.commit()
-print datetime.now()
 
 conn_source.close()
 conn_target.close()
