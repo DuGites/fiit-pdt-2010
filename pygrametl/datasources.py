@@ -1,3 +1,4 @@
+﻿
 """This module holds classes that can be used as data soures. A data source
    must be iterable and provide dicts with data values.
 """

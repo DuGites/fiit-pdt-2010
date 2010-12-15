@@ -1,4 +1,4 @@
-"""
+﻿"""
    A package for creating Extract-Transform-Load (ETL) programs in Python.
 
    The package contains a number of classes for filling fact tables

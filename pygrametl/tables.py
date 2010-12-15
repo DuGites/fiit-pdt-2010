@@ -1,3 +1,4 @@
+﻿
 """This module contains classes for looking up rows, inserting rows
    and updating rows in dimensions and fact tables. Rows are represented
    as dictionaries mapping between attribute names and attribute values.
