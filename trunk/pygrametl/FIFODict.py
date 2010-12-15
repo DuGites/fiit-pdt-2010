@@ -1,3 +1,4 @@
+﻿
 """
   A simple mapping between keys and values, but with a limited capacity. When
   the max. capacity is reached, the first inserted key/value pair is deleted

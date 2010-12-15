@@ -1,3 +1,5 @@
+# -*- coding: <utf-8> -*-
+
 import sys
 
 # cesta k priecinku, kde sa nachadza podpriecinok pygrametl
@@ -10,6 +12,9 @@ from pygrametl.tables import *
 mysql_conn_target = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
 mysql_conn_source = MySQLdb.connect(host='localhost', user='root', passwd='', db='karty')
 
+mysql_conn_source.set_character_set('utf8')
+mysql_conn_target.set_character_set('utf8')
+
 conn_source = pygrametl.ConnectionWrapper(mysql_conn_source)
 conn_target = pygrametl.ConnectionWrapper(mysql_conn_target)
 
@@ -19,7 +24,7 @@ conn_target.commit()
 
 # zdroj dat pre dimenziu
 query = 'SELECT * FROM cardowner'
-card_source = SQLSource(connection=conn_source, query=query, names=(), initsql=None, cursorarg=None)
+cardowner_source = SQLSource(connection=conn_source, query=query, names=(), initsql=None, cursorarg=None)
 
 # dimenzia
 cardowner_dim = CachedDimension(
@@ -37,7 +42,7 @@ address_dim = CachedDimension(
     key='id',
     attributes=['address_city', 'address_street', 'address_zip', 'address_state'])
 
-for row in card_source:
+for row in cardowner_source:
     # mozete menit hodnoty
     row['ownerrole_id'] = row['OwnerRole_id']
     row['address_id'] = address_dim.ensure(row)

@@ -1,9 +1,11 @@
-import MySQLdb
+﻿import MySQLdb
 import sys
 
 # vypise najziskovejsie jedalne za dany rok, default je 2008
 
 db = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
+
+db.set_character_set('utf8')
 
 if (len(sys.argv) > 1):
     year = sys.argv[1]

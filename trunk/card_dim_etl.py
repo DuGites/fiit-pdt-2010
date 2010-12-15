@@ -10,6 +10,9 @@ from pygrametl.tables import *
 mysql_conn_target = MySQLdb.connect(host='localhost', user='root', passwd='', db='dwh')
 mysql_conn_source = MySQLdb.connect(host='localhost', user='root', passwd='', db='karty')
 
+mysql_conn_source.set_character_set('utf8')
+mysql_conn_target.set_character_set('utf8')
+
 conn_source = pygrametl.ConnectionWrapper(mysql_conn_source)
 conn_target = pygrametl.ConnectionWrapper(mysql_conn_target)
 

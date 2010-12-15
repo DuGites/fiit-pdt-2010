@@ -1,3 +1,4 @@
+﻿
 """This module contains classes for making "steps" in an ETL flow.
    Steps can be connected such that a row flows from step to step and
    each step does something with the row.

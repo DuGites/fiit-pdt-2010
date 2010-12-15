@@ -1,3 +1,4 @@
+﻿
 """This module holds a ConnectionWrapper that is used with a 
    JDBC Connection. The module should only be used when running Jython.
 """
