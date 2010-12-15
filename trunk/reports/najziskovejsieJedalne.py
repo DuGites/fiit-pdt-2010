@@ -1,5 +1,9 @@
-﻿import MySQLdb
-import sys
+﻿import sys
+dir = sys.path[0]
+# cesta k lib
+sys.path.append(dir + '\\..\\lib') 
+
+import MySQLdb
 
 # vypise najpredavanejsie jedla za rok v parametri (default je 2008)
 
