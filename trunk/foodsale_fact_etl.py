@@ -1,7 +1,7 @@
 import sys
-
+dir = sys.path[0]
 # cesta k lib
-sys.path.append('.')
+sys.path.append(dir + '\\lib') 
 
 import pygrametl, MySQLdb, random, datetime
 from pygrametl.datasources import *
